@@ -1,0 +1,33 @@
+load("//:shell.bzl", "create_shell")
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
+
+create_shell(
+  name = "myshell",
+)
+
+native_binary(
+    name = "wrapper",
+    src = "wrapper.sh",
+    out = "wrapper.sh",
+    visibility = ["//visibility:public"],
+)
+
+sh_test(
+  name = "test_bad",
+  srcs = ["shell_bad.sh"],
+  data = [":myshell"],
+)
+
+targets = []
+
+[
+    [
+        sh_test(
+            name = "test_{}".format(num),
+            srcs = ["shell_good.sh"],
+            tags = ["ok"],
+        ),
+    ]
+    for num in range(10)
+]
+

@@ -1,0 +1,2 @@
+bazel-bin
+bazel-coverage_hang
