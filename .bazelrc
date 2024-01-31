@@ -1,7 +1,9 @@
-# Code coverage
+# Code coverage setup: those can be set or not, they will not affect the outcome
 coverage --instrumentation_filter="^//"
 coverage --experimental_split_coverage_postprocessing
 coverage --experimental_fetch_all_coverage_outputs
-coverage --combined_report=lcov
 coverage --build_event_json_file=
 coverage --strategy=CoverageReport=local
+
+# This flag seems to be the culprit
+coverage --combined_report=lcov
